@@ -2,6 +2,24 @@ import User from '../models/UserModel.js';
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
+
+export const signup = async (req, res, next) => {
+  const { username, email, password } = req.body;
+  try {
+    if(username){
+      return res.status(400).json('Username already exists!');
+    }
+    const hashedPassword = await bcryptjs.hashSync(password, 10);
+    const newUser = new User({ username, email, password: hashedPassword });
+    await newUser.save();
+    res.status(201).json('User created successfully!');
+    console.log( newUser
+    );
+  } catch (error) {
+    res.status(500).json('Internal Server Error');
+    next(error);
+  }
+};
 export const signin = async (req, res, next) => {
     const { email, password } = req.body;
     try {
