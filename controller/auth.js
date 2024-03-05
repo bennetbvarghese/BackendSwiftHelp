@@ -6,9 +6,10 @@ import jwt from 'jsonwebtoken';
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
   try {
-    if(username){
-      return res.status(400).json('Username already exists!');
-    }
+    // if(username){
+    //   console.log('Username:', username);
+    //   return res.status(400).json('Username already exists!');
+    // }
     const hashedPassword = await bcryptjs.hashSync(password, 10);
     const newUser = new User({ username, email, password: hashedPassword });
     await newUser.save();
