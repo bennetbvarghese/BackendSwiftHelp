@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import authRouter from './routes/authroute.js';
+import userRouter from './routes/userroute.js';
 
 
 const app = express()
@@ -26,4 +27,5 @@ app.get('/', (req, res) => {
     res.send('Hello World')
 })
 
-app.use('/backend/now',authRouter);
+app.use('/backend/auth',authRouter);
+app.use('/backend/user',userRouter);
